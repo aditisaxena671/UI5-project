@@ -1,0 +1,48 @@
+_schema-version: "3.2"
+ID: project1
+version: 0.0.1
+description: "UI5 App MTA for Deployment"
+modules:
+  - name: project1-ui5
+    type: html5
+    path: .
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npx ui5 build --all
+      supported-platforms: []
+    requires:
+      - name: project1-html5-repo-runtime
+      - name: project1-destination
+
+  - name: project1-html5-deployer
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: project1-html5-repo-host
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - project1-ui5
+          name: project1-ui5
+
+resources:
+  - name: project1-html5-repo-runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime
+
+  - name: project1-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+
+  - name: project1-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite

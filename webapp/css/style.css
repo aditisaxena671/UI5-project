@@ -1,0 +1,40 @@
+.cardRed {
+    background-color: #ffe5e5;
+}
+
+.cardGreen {
+    background-color: #e5ffe5;
+}
+
+.cardBlue {
+    background-color: #e5f0ff;
+}
+.cardYellow {
+    background-color: #ffffe5;
+}
+/* filepath: d:\self learning\ui5\webapp\css\style.css */
+.orderListBox {
+    height: 300px;
+    overflow-y: auto;
+}
+.kpiWidthHeight.sapMGT.OneByOne {
+    width: 11rem;
+    height: 8rem;
+}
+.kpiInsideHeight .sapMNC {
+    height: 2.875rem;
+}
+
+html, body {
+  height: auto;
+  overflow-y: auto;}
+.customScrollContainer {
+    overflow-y: auto !important;
+    scrollbar-width: none !important; /* Firefox */
+    -ms-overflow-style: none !important; /* IE/Edge */
+}
+.formNavigation{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}

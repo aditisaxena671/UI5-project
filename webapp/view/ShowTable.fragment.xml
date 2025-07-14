@@ -1,0 +1,64 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:u="sap.ui.unified"
+    xmlns:l="sap.ui.layout"
+    xmlns:upload="sap.m.upload"
+    xmlns:Dialog="sap.m"
+    xmlns:Table="sap.m"
+>
+    <Dialog
+        id="ShowTableDialog"
+        title="ShowTableDialog"
+        contentWidth="40%"
+        draggable="true"
+        resizable="true"
+    >
+        <Table
+            id="ShowDialogTable"
+            items="{oOrdersJsonModel>/orders}"
+        >
+            <columns>
+                <Column>
+                    <Text text="orderId" />
+                </Column>
+                <Column>
+                    <Text text="customer" />
+                </Column>
+                <Column>
+                    <Text text="orderDate" />
+                </Column>
+                <Column>
+                    <Text text="Address" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Text text="{oOrdersJsonModel>OrderID}" />
+                        <Text text="{oOrdersJsonModel>CustomerID}" />
+                        <Text text="{oOrdersJsonModel>OrderDate}" />
+                        <Text text="{oOrdersJsonModel>ShipAddress}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+
+        <beginButton>
+            <Button
+                text="Save"
+                press="updateEditForm"
+                type="Emphasized"
+            />
+        </beginButton>
+
+        <!-- endButton aggregation -->
+        <endButton>
+            <Button
+                text="Cancel"
+                press="onCancelShowTableDialog"
+            />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
