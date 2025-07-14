@@ -53,17 +53,24 @@
                 >
                     <VBox>
                         <Text text="You have 5 new orders today." />
-                        <Button
+                        <Toolbar >
+<Button
                             text="Get Started"
                             type="Emphasized"
                             press="onGetStartedPress"
                         />
+                        
                         <Button
                             text="Show Table Dialog"
                             type="Emphasized"
                             press="onShowTableDialogPress"
                         />
-                    </VBox>
+                            <ToolbarSpacer ></ToolbarSpacer>
+                            <Button text="Show Details" icon="sap-icon://add"  press="showDetails" type="Emphasized"  />
+                    
+                        </Toolbar>
+                        
+                        </VBox>
                 </Panel>
 
                 <HBox>
@@ -114,6 +121,9 @@
                             width="100%"
                             growing="false"
                             inset="false"
+                            busyIndicatorDelay="0"
+                            busy="false"
+                            mode="SingleSelectLeft"
                         >
                             <columns>
                                 <Column>

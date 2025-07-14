@@ -4,50 +4,37 @@ sap.ui.define([
     "sap/ui/model/resource/ResourceModel",
     "sap/m/MessageToast",
     "sap/ui/core/Fragment",
-     "sap/ui/model/odata/v2/ODataModel" 
+    "sap/ui/model/odata/v2/ODataModel",
+    'sap/m/MessageBox',
 
-], function (Controller, JSONModel, ResourceModel, MessageToast, Fragment,ODataModel) {
+], function (Controller, JSONModel, ResourceModel, MessageToast, Fragment, ODataModel, MessageBox) {
     "use strict";
     return Controller.extend("sap.ui.demo.walkthrough.project1.controller.BasePage", {
         onInit: function () {
-            this.oOrdersJsonModel= new JSONModel();
-            this.getView().setModel(this.oOrdersJsonModel,"oOrdersJsonModel");
-
-            
+            this.oOrdersJsonModel = new JSONModel();
+            this.getView().setModel(this.oOrdersJsonModel, "oOrdersJsonModel");
+            var oTable = this.getView().byId("ordersTable");
+            oTable.setBusy(true);
+            this.fetchOrderData();
             // var sample= oOrdersJsonModel.getProperty("/orders");
             // console.log("Sample Orders: ", sample);
-            
-
-            // var oData = {
-            //     orders: [
-            //         { orderId: "1001", customer: "Reliance", orderDate: "2025-07-01", status: "Delivered", amount: "₹1200" },
-            //         { orderId: "1002", customer: "Tata", orderDate: "2025-07-03", status: "Pending", amount: "₹3400" },
-            //         { orderId: "1003", customer: "HUL", orderDate: "2025-07-05", status: "Shipped", amount: "₹950" },
-            //         { orderId: "1004", customer: "Nestle", orderDate: "2025-07-08", status: "Cancelled", amount: "₹0" },
-            //         { orderId: "1001", customer: "Reliance", orderDate: "2025-07-01", status: "Delivered", amount: "₹1200" },
-            //         { orderId: "1002", customer: "Tata", orderDate: "2025-07-03", status: "Pending", amount: "₹3400" },
-            //         { orderId: "1003", customer: "HUL", orderDate: "2025-07-05", status: "Shipped", amount: "₹950" },
-            //         { orderId: "1004", customer: "Nestle", orderDate: "2025-07-08", status: "Cancelled", amount: "₹0" },
-
-            //     ]
-            // };
-
-            // var oModel = new sap.ui.model.json.JSONModel(oData);
-            // this.getView().setModel(oModel, "orderModel");
         },
-        fetchOrderData: async function(){
+        fetchOrderData: function () {
             this.getOwnerComponent().getModel("Northwind").read("/Orders", {
-                success: function(oData) {
-                    if(oData && oData.results) {
-                        console.log("Success ",oData.results);
+                success: function (oData) {
+                    var oTable = this.byId("ordersTable");
+                    if (oData && oData.results) {
+                        console.log("Success ", oData.results);
                         this.oOrdersJsonModel.setProperty("/orders", oData.results);
+                        oTable.setBusy(false);
                     }
-                    else{
-                        this.oOrdersJsonModel.setProperty("/orders",[]);
+                    else {
+                        this.oOrdersJsonModel.setProperty("/orders", []);
+                        oTable.setBusy(false);
                     }
                 }.bind(this),
-                error: function(oError) {
-                    this.oOrdersJsonModel.setProperty("/orders",[]);
+                error: function (oError) {
+                    this.oOrdersJsonModel.setProperty("/orders", []);
                     console.error("Error ", oError);
                 }.bind(this)
             });
@@ -55,8 +42,8 @@ sap.ui.define([
             // console.log("Sample Orders: ", sample);
 
         },
-        onGetStartedPress:  function () {
-            
+        onGetStartedPress: function () {
+
             if (!this.GetStartedDialog) {
                 this.GetStartedDialog = sap.ui.xmlfragment("sap.ui.demo.walkthrough.project1.view.GetStarted", this);
                 this.getView().addDependent(this.GetStartedDialog);
@@ -69,8 +56,8 @@ sap.ui.define([
                 this.GetStartedDialog.close();
             }
         },
-        onShowTableDialogPress: async function () {
-            await this.fetchOrderData();
+        onShowTableDialogPress: function () {
+            // await this.fetchOrderData();
             // var oModel = this.getView().getModel("orderModel");
             // var aOrders = oModel.getProperty("/orders");
             // console.log("Orders received:", aOrders);
@@ -84,6 +71,33 @@ sap.ui.define([
             if (this.ShowTableDialog) {
                 this.ShowTableDialog.close();
             }
+        },
+        showDetails: function () {
+            var oTable = this.getView().byId("ordersTable");
+            var selectedItem = oTable.getSelectedItem();
+            if (selectedItem) {
+                var context = selectedItem.getBindingContext("oOrdersJsonModel");
+                if (!this.orderDetailsDialog) {
+                    this.orderDetailsDialog = sap.ui.xmlfragment("sap.ui.demo.walkthrough.project1.view.OrderDetail", this);
+                    this.getView().addDependent(this.orderDetailsDialog)
+                }
+                this.orderDetailsDialog.setModel(this.getView().getModel("oOrdersJsonModel"));
+                this.orderDetailsDialog.bindElement({
+                    path: context.getPath(),
+                    model: "oOrdersJsonModel"
+                });
+                this.orderDetailsDialog.open();
+                // var orderDetails= context.getProperty("OrderID");
+                // MessageBox.success("Order ID: " + orderDetails);
+                // console.log("Item selected");
+            }
+            else {
+                MessageBox.warning("Please Select a Record");
+
+            }
+        },
+        onCancelOrderDetailDialog: function () {
+            this.orderDetailsDialog.close();
         },
     });
 });

@@ -18,6 +18,7 @@
         <Table
             id="ShowDialogTable"
             items="{oOrdersJsonModel>/orders}"
+            
         >
             <columns>
                 <Column>
