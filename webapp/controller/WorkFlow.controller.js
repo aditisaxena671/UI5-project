@@ -1,21 +1,17 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/model/resource/ResourceModel",
-    "sap/m/MessageToast",
-    "sap/ui/core/Fragment",
-    "sap/ui/model/odata/v2/ODataModel",
     'sap/m/MessageBox',
 
-], function (Controller, JSONModel, ResourceModel, MessageToast, Fragment, ODataModel, MessageBox) {
+], function (Controller, JSONModel, MessageBox) {
     "use strict";
-    return Controller.extend("sap.ui.demo.walkthrough.project1.controller.BasePage", {
+    return Controller.extend("sap.ui.demo.walkthrough.project1.controller.WorkFlow", {
         onInit: function () {
             this.oOrdersJsonModel = new JSONModel();
             this.getView().setModel(this.oOrdersJsonModel, "oOrdersJsonModel");
-            var oTable = this.getView().byId("ordersTable");
-            oTable.setBusy(true);
             this.fetchOrderData();
+            console.log("hello");
+           
             // var sample= oOrdersJsonModel.getProperty("/orders");
             // console.log("Sample Orders: ", sample);
         },
@@ -26,11 +22,11 @@ sap.ui.define([
                     if (oData && oData.results) {
                         console.log("Success ", oData.results);
                         this.oOrdersJsonModel.setProperty("/orders", oData.results);
-                        oTable.setBusy(false);
+                        // oTable.setBusy(false);
                     }
                     else {
                         this.oOrdersJsonModel.setProperty("/orders", []);
-                        oTable.setBusy(false);
+                        // oTable.setBusy(false);
                     }
                 }.bind(this),
                 error: function (oError) {
@@ -51,16 +47,28 @@ sap.ui.define([
             this.GetStartedDialog.open();
 
         },
+        onSideNavItemPress:function(oEvent){
+            console.log("Clicked");
+            const sKey= oEvent.getSource().getText().toLowerCase();
+            const oRoute= sap.ui.core.UIComponent.getRouterFor(this);
+            switch(sKey){
+                case "dashboard":
+                    oRoute.navTo("dashboard");
+                    break;
+                default:
+                    console.log("Default Treggered");
+                    break;
+
+
+            }
+        }
+        ,
         onCancelGetStartedDialog: function () {
             if (this.GetStartedDialog) {
                 this.GetStartedDialog.close();
             }
         },
         onShowTableDialogPress: function () {
-            // await this.fetchOrderData();
-            // var oModel = this.getView().getModel("orderModel");
-            // var aOrders = oModel.getProperty("/orders");
-            // console.log("Orders received:", aOrders);
             if (!this.ShowTableDialog) {
                 this.ShowTableDialog = sap.ui.xmlfragment("sap.ui.demo.walkthrough.project1.view.ShowTable", this);
                 this.getView().addDependent(this.ShowTableDialog);

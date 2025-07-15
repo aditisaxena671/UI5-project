@@ -65,7 +65,7 @@
       },
       "Northwind": {
         "dataSource": "mainService",
-        "preload": true,
+        "preload": false,
         "settings": {
           "useBatch": false,
           "defaultBindingMode": "TwoWay",
@@ -97,23 +97,23 @@
         "viewPath": "sap.ui.demo.walkthrough.project1.view"
       },
       "routes": [
+        
         {
-          "name": "RouteView1",
-          "pattern": ":?query:",
-          "target": [
-            "TargetView1"
-          ]
+          "pattern": "dashboard",
+          "name": "dashboard",
+          "target": "dashboard"
         }
       ],
       "targets": {
-        "TargetView1": {
-          "id": "View1",
-          "name": "View1"
+        
+        "dashboard": {
+          "id": "Dashboard",
+          "name": "Dashboard"
         }
       }
     },
     "rootView": {
-      "viewName": "sap.ui.demo.walkthrough.project1.view.App",
+      "viewName": "sap.ui.demo.walkthrough.project1.view.WorkFlow",
       "type": "XML",
       "id": "App",
       "async": true

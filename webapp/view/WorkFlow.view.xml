@@ -1,0 +1,53 @@
+<mvc:View
+    controllerName="sap.ui.demo.walkthrough.project1.controller.WorkFlow"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:tnt="sap.tnt"
+    xmlns:m="sap.m"
+    displayBlock="true"
+    xmlns:f="sap.f"
+>
+    <tnt:ToolPage id="mainToolPage">
+        <tnt:header>
+            <tnt:ToolHeader>
+                <m:Text text="My Dashboard" />
+                <f:Avatar initials="AD" />
+            </tnt:ToolHeader>
+        </tnt:header>
+        <tnt:sideContent>
+            <tnt:SideNavigation>
+                <tnt:NavigationList
+                    selectedKey="dashboard"
+                >
+                    <tnt:NavigationListItem
+                        text="Dashboard"
+                        icon="sap-icon://home"
+                        press=".onSideNavItemPress"
+                        key="dashboard"
+                    />
+                    <tnt:NavigationListItem
+                        text="Orders"
+                        icon="sap-icon://cart"
+                        press=".onSideNavItemPress"
+                    />
+                    <tnt:NavigationListItem
+                        text="Customers"
+                        icon="sap-icon://customer"
+                        press=".onSideNavItemPress"
+                    />
+                    <tnt:NavigationListItem
+                        text="Reports"
+                        icon="sap-icon://pie-chart"
+                        press=".onSideNavItemPress"
+                    />
+                </tnt:NavigationList>
+            </tnt:SideNavigation>
+        </tnt:sideContent>
+        <tnt:mainContents>
+            <App id="app">
+            </App>
+        </tnt:mainContents>
+    </tnt:ToolPage>
+</mvc:View>
