@@ -1,0 +1,43 @@
+<mvc:View
+    controllerName="sap.ui.demo.walkthrough.project1.controller.WorkFlow"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:Table="sap.m" 
+>
+    <Page>
+        <Table headerText="Customer Details" items="{Northwind>/Customers}" >
+            <columns>
+                <Column>
+                    <Text text="Customer Name" />
+                </Column>
+                <Column>
+                    <Text text="Company Name" />
+                </Column>
+                <Column>
+                    <Text text="Designation" />
+                </Column>
+                <Column>
+                    <Text text="Country" />
+                </Column>
+                <Column>
+                    <Text text="Phone" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Text text="{Northwind>ContactName}" />
+                        <Text text="{Northwind>CompanyName}" />
+                        <Text text="{Northwind>ContactTitle}" />
+
+                        <Text text="{Northwind>Country}"/>
+                        <Text text="{Northwind>Phone}"/>
+
+                    </cells>
+                </ColumnListItem>
+            </items>
+
+        </Table>
+    </Page>
+</mvc:View>

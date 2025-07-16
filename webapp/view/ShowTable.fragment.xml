@@ -11,7 +11,7 @@
 >
         <Table
             id="ShowDialogTable"
-            items="{oOrdersJsonModel>/orders}"
+            items="{Northwind>/Orders}"
             
         >
             <columns>
@@ -31,11 +31,11 @@
             <items>
                 <ColumnListItem>
                     <cells>
-                        <Text text="{oOrdersJsonModel>OrderID}" />
-                        <Text text="{oOrdersJsonModel>CustomerID}" />
-                        <Text text="{oOrdersJsonModel>OrderDate}" />
+                        <Text text="{Northwind>OrderID}" />
+                        <Text text="{Northwind>CustomerID}" />
+                        <Text text="{Northwind>OrderDate}" />
 
-                        <Text text="{oOrdersJsonModel>ShipAddress}"/>
+                        <Text text="{Northwind>ShipAddress}"/>
                     </cells>
                 </ColumnListItem>
             </items>

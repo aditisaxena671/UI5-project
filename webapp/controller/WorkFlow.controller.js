@@ -5,38 +5,54 @@ sap.ui.define([
 
 ], function (Controller, JSONModel, MessageBox) {
     "use strict";
+    let _initialized = false;
     return Controller.extend("sap.ui.demo.walkthrough.project1.controller.WorkFlow", {
         onInit: function () {
-            this.oOrdersJsonModel = new JSONModel();
-            this.getView().setModel(this.oOrdersJsonModel, "oOrdersJsonModel");
+            if (_initialized) {
+                console.log("Controller already initialized globally");
+                return;
+            }
+            _initialized = true;
+            console.log("goinf to call api");
             this.fetchOrderData();
-            console.log("hello");
-           
-            // var sample= oOrdersJsonModel.getProperty("/orders");
-            // console.log("Sample Orders: ", sample);
+            this.fetchCustomerDetails();
         },
+        readOData: function (sPath) {
+            return new Promise((resolve, reject) => {
+                this.getOwnerComponent().getModel("Northwind").read(sPath, {
+                    success: resolve,
+                    error: reject
+                });
+            });
+        },
+        
         fetchOrderData: function () {
-            this.getOwnerComponent().getModel("Northwind").read("/Orders", {
-                success: function (oData) {
-                    var oTable = this.byId("ordersTable");
+            this.readOData("/Orders")
+                .then((oData) => {
                     if (oData && oData.results) {
-                        console.log("Success ", oData.results);
-                        this.oOrdersJsonModel.setProperty("/orders", oData.results);
-                        // oTable.setBusy(false);
+                        console.log("Orders fetched successfully", oData.results);
+                    } else {
+                        MessageBox.warning("No orders found");
+                    }
+                })
+                .catch((oError) => {
+                    console.error("Error fetching Orders", oError);
+                    MessageBox.error("Failed to fetch orders.");
+                });
+        },
+        fetchCustomerDetails: function () {
+            this.readOData("/Customers")
+                .then((oData) => {
+                    if (oData && oData.results) {
+                        console.log("Customer Data: ", oData.results);
                     }
                     else {
-                        this.oOrdersJsonModel.setProperty("/orders", []);
-                        // oTable.setBusy(false);
+                        MessageBox.warning("No Customer found");
                     }
-                }.bind(this),
-                error: function (oError) {
-                    this.oOrdersJsonModel.setProperty("/orders", []);
-                    console.error("Error ", oError);
-                }.bind(this)
-            });
-            // var sample= oOrdersJsonModel.getProperty("/orders");
-            // console.log("Sample Orders: ", sample);
-
+                }).catch((err) => {
+                    console.error("Error fetching Customer", err);
+                    MessageBox.error("Failed to fetch Customers.");
+                })
         },
         onGetStartedPress: function () {
 
@@ -47,13 +63,16 @@ sap.ui.define([
             this.GetStartedDialog.open();
 
         },
-        onSideNavItemPress:function(oEvent){
+        onSideNavItemPress: function (oEvent) {
             console.log("Clicked");
-            const sKey= oEvent.getSource().getText().toLowerCase();
-            const oRoute= sap.ui.core.UIComponent.getRouterFor(this);
-            switch(sKey){
+            const sKey = oEvent.getSource().getText().toLowerCase();
+            const oRoute = sap.ui.core.UIComponent.getRouterFor(this);
+            switch (sKey) {
                 case "dashboard":
                     oRoute.navTo("dashboard");
+                    break;
+                case "customers":
+                    oRoute.navTo("customers");
                     break;
                 default:
                     console.log("Default Treggered");
@@ -95,9 +114,6 @@ sap.ui.define([
                     model: "oOrdersJsonModel"
                 });
                 this.orderDetailsDialog.open();
-                // var orderDetails= context.getProperty("OrderID");
-                // MessageBox.success("Order ID: " + orderDetails);
-                // console.log("Item selected");
             }
             else {
                 MessageBox.warning("Please Select a Record");

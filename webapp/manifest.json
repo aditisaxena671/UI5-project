@@ -102,13 +102,24 @@
           "pattern": "dashboard",
           "name": "dashboard",
           "target": "dashboard"
+        },
+        {
+          "pattern":"customers",
+          "name":"customers",
+          "target":"customers"
         }
       ],
       "targets": {
         
         "dashboard": {
           "id": "Dashboard",
-          "name": "Dashboard"
+          "name": "Dashboard",
+          "viewType": "XML"
+        },
+        "customers":{
+          "id":"Customers",
+          "viewType": "XML",
+          "name":"Customers"
         }
       }
     },
