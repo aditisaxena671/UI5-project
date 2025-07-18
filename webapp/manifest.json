@@ -44,6 +44,7 @@
     }
   },
   "sap.ui5": {
+    
     "flexEnabled": true,
     "dependencies": {
       "minUI5Version": "1.138.0",
@@ -107,6 +108,11 @@
           "pattern":"customers",
           "name":"customers",
           "target":"customers"
+        },
+        {
+          "pattern":"orders",
+          "name":"orders",
+          "target":"orders"
         }
       ],
       "targets": {
@@ -120,6 +126,11 @@
           "id":"Customers",
           "viewType": "XML",
           "name":"Customers"
+        },
+        "orders":{
+          "id":"Orders",
+          "viewType": "XML",
+          "name":"Orders"
         }
       }
     },

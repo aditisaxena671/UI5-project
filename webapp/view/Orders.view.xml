@@ -1,0 +1,13 @@
+<mvc:View
+    controllerName="sap.ui.demo.walkthrough.project1.controller.WorkFlow"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true"
+    xmlns:f="sap.f"
+>
+<Page >
+    <core:Fragment fragmentName="sap.ui.demo.walkthrough.project1.view.ShowOrderTable" type="XML"/>
+</Page>
+
+</mvc:View>

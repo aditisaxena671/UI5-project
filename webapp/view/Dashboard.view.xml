@@ -83,7 +83,7 @@
                             </TileContent>
                         </GenericTile>
                     </HBox>
-                    <Panel
+                    <!-- <Panel
                         headerText="Order List"
                         class="sapUiSmallMargin"
                     >
@@ -93,7 +93,7 @@
                                 type="XML"
                             />
                         </VBox>
-                    </Panel>
+                    </Panel> -->
                 </VBox>
             </ScrollContainer>
 </Page>

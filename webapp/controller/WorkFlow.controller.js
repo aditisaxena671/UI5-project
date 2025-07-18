@@ -27,6 +27,7 @@ sap.ui.define([
         },
         
         fetchOrderData: function () {
+            console.log("inside fetchOrderData")
             this.readOData("/Orders")
                 .then((oData) => {
                     if (oData && oData.results) {
@@ -74,6 +75,9 @@ sap.ui.define([
                 case "customers":
                     oRoute.navTo("customers");
                     break;
+                case "orders":
+                    oRoute.navTo("orders");
+                    break;
                 default:
                     console.log("Default Treggered");
                     break;
@@ -120,8 +124,27 @@ sap.ui.define([
 
             }
         },
-        onCancelOrderDetailDialog: function () {
-            this.orderDetailsDialog.close();
+        onCancelCrderDetailDialog: function () {
+            // this.customerDetailsDialog.unbindElement();
+            this.customerDetailsDialog.close();
         },
+        onRowPress:function(oEvent){
+            console.log("Row Pressed");
+            var sPath= oEvent.getSource().getBindingContext("Northwind").getPath();
+            if(!this.customerDetailsDialog){
+                this.customerDetailsDialog= sap.ui.xmlfragment(this.getView().getId(),"sap.ui.demo.walkthrough.project1.view.CustomerDetail",this);
+                this.getView().addDependent(this.customerDetailsDialog);
+            }
+            var oModel= this.getView().getModel("Northwind");
+            this.getView().byId("customerDetailsDialog").setModel(oModel,"Northwind");
+
+            this.getView().byId("customerDetailsDialog").bindElement({
+                path:sPath,
+                model:"Northwind",
+                parameters: { "expand": "Orders" }
+            });
+            this.getView().byId("customerDetailsDialog").getModel("Northwind").refresh(true);
+            this.customerDetailsDialog.open();
+        }
     });
 });

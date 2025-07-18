@@ -6,7 +6,8 @@
     xmlns:Table="sap.m" 
 >
     <Page>
-        <Table headerText="Customer Details" items="{Northwind>/Customers}" >
+        <Table headerText="Customer Details" items="{Northwind>/Customers}" growing="true"
+			growingThreshold="10" >
             <columns>
                 <Column>
                     <Text text="Customer Name" />
@@ -25,7 +26,7 @@
                 </Column>
             </columns>
             <items>
-                <ColumnListItem>
+                <ColumnListItem type="Active" press="onRowPress">
                     <cells>
                         <Text text="{Northwind>ContactName}" />
                         <Text text="{Northwind>CompanyName}" />
