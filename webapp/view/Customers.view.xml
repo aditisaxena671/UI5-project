@@ -6,8 +6,11 @@
     xmlns:Table="sap.m" 
 >
     <Page>
+    <OverflowToolbar >
+        <SearchField liveChange="onChange"/>
+    </OverflowToolbar>
         <Table headerText="Customer Details" items="{Northwind>/Customers}" growing="true"
-			growingThreshold="10" >
+			growingThreshold="10" id="cutomerTable" >
             <columns>
                 <Column>
                     <Text text="Customer Name" />

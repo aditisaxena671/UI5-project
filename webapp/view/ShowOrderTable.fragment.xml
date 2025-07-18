@@ -6,61 +6,69 @@
     xmlns:l="sap.ui.layout"
     xmlns:upload="sap.m.upload"
     xmlns:Dialog="sap.m"
-    xmlns:uiTable="sap.ui.table" 
-    core:require="{ formatter: 'sap/ui/demo/walkthrough/project1/util/formatter' }">
-        <Panel
-                        headerText="Order Details"
-                        class="sapUiSmallMarginEnd"
-                    />
-        <uiTable:Table
-            id="ShowDialogTable"
-            threshold="15"
-            scrollThreshold="50"
-            rows="{Northwind>/Orders}"
-            selectionMode="None"
-           
-            
-            
-        >
-            <uiTable:columns >
-                <uiTable:Column width="10rem">
-                    <Label text="Order Id"/>
-                    <uiTable:template>
-                    
-                        <Text text="{Northwind>OrderID}"/>
-                    </uiTable:template>
-                </uiTable:Column>
-                <uiTable:Column width="10rem">
-                    <Label text="Customer"/>
-                    <uiTable:template>
-                        <Text text="{Northwind>CustomerID}"/>
-                    </uiTable:template>
-                </uiTable:Column>
-                <uiTable:Column width="10rem">
-                    <Label text="Order Date"/>
-                    <uiTable:template>
-                        <!-- <Text text="{path:'Northwind>OrderDate',formatter:'sap.ui.demo.walkthrough.project1.util.formatter.formatDate'}"/> -->
-                        <Text text="{
+    xmlns:uiTable="sap.ui.table"
+    core:require="{ formatter: 'sap/ui/demo/walkthrough/project1/util/formatter' }"
+>
+    <Panel
+        headerText="Order Details"
+        class="sapUiSmallMarginEnd"
+    >
+        <Button
+            text="Hide/Show Columns"
+            width="230px"
+            press="onHideOrShowColumnChange"
+            class="sapUiSmallMarginBottom"
+        />
+    </Panel>
+    <uiTable:Table
+        id="ShowDialogTable"
+        threshold="15"
+        scrollThreshold="50"
+        rows="{Northwind>/Orders}"
+        selectionMode="None"
+    >
+        <uiTable:columns>
+            <uiTable:Column width="10rem">
+                <Label text="Order Id" />
+                <uiTable:template>
+                    <Text text="{Northwind>OrderID}" />
+                </uiTable:template>
+            </uiTable:Column>
+            <uiTable:Column width="10rem">
+                <Label text="Customer" />
+                <uiTable:template>
+                    <Text text="{Northwind>CustomerID}" />
+                </uiTable:template>
+            </uiTable:Column>
+            <uiTable:Column width="10rem">
+                <Label text="Order Date" />
+                <uiTable:template>
+                    <!-- <Text text="{path:'Northwind>OrderDate',formatter:'sap.ui.demo.walkthrough.project1.util.formatter.formatDate'}"/> -->
+                    <Text
+                        text="{
                         path: 'Northwind>OrderDate',
                         formatter: 'formatter.formatDate'
-                    }"/>
-                    </uiTable:template>
-                </uiTable:Column>
-                <uiTable:Column width="10rem">
-                    <Label text="Ship City"/>
-                    <uiTable:template>
-                        <Text text="{Northwind>ShipCity}"/>
-                    </uiTable:template>
-                </uiTable:Column>
-                <uiTable:Column width="10rem">
-                    <Label text="Shipped Date"/>
-                    <uiTable:template>
-                        <Text text="{
+                    }"
+                    />
+                </uiTable:template>
+            </uiTable:Column>
+            <uiTable:Column width="10rem">
+                <Label text="Ship City" />
+                <uiTable:template>
+                    <Text text="{Northwind>ShipCity}" />
+                </uiTable:template>
+            </uiTable:Column>
+            <uiTable:Column width="10rem">
+                <Label text="Shipped Date" />
+                <uiTable:template>
+                    <Text
+                        text="{
                             path:'Northwind>ShippedDate',
                             formatter: 'formatter.formatDate'
-                        }"/>
-                    </uiTable:template>
-                </uiTable:Column>
-            </uiTable:columns>
-        </uiTable:Table>      
+                        }"
+                    />
+                </uiTable:template>
+            </uiTable:Column>
+        </uiTable:columns>
+    </uiTable:Table>
 </core:FragmentDefinition>

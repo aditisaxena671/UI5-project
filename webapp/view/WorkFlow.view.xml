@@ -19,7 +19,8 @@
         <tnt:sideContent>
             <tnt:SideNavigation>
                 <tnt:NavigationList
-                    selectedKey="dashboard"
+                selectedKey="dashboard"
+                    
                 >
                     <tnt:NavigationListItem
                         text="Dashboard"
@@ -31,16 +32,19 @@
                         text="Orders"
                         icon="sap-icon://cart"
                         press=".onSideNavItemPress"
+                        key="orders"
                     />
                     <tnt:NavigationListItem
                         text="Customers"
                         icon="sap-icon://customer"
                         press=".onSideNavItemPress"
+                        key="customers"
                     />
                     <tnt:NavigationListItem
                         text="Reports"
                         icon="sap-icon://pie-chart"
                         press=".onSideNavItemPress"
+                        key="reports"
                     />
                 </tnt:NavigationList>
             </tnt:SideNavigation>
