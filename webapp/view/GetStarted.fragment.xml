@@ -114,8 +114,8 @@
                 />
             </VBox>
             <HBox class="formNavigation">
-            <Button icon="sap-icon://navigation-left-arrow" tooltip=" "></Button>
-            <Button icon="sap-icon://navigation-right-arrow" tooltip=" "></Button>
+            <Button icon="sap-icon://navigation-left-arrow" tooltip=" " press="PreviousNav" id="PreviousButton"></Button>
+            <Button icon="sap-icon://navigation-right-arrow" tooltip=" " press="NextNav" id="NextButton"></Button>
             </HBox>
         </content>
         <beginButton>

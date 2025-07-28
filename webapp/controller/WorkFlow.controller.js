@@ -19,29 +19,39 @@ sap.ui.define([
             _initialized = true;
             this.pageSize = 10;
             this.currentSkip = 0;
+            this.pageNo=1;
             console.log("going to call api");
             this.loadProductData();
             // this.fetchOrderData();
             // this.fetchCustomerDetails();
         },
-        readOData: function (sPath) {
+        readOData: function (sPath, mParameters = {}) {
             return new Promise((resolve, reject) => {
                 this.getOwnerComponent().getModel("Northwind").read(sPath, {
                     success: resolve,
-                    error: reject
+                    error: reject,
+                    urlParameters: mParameters
                 });
             });
         },
         loadProductData: function () {
             console.log("Loading data for product");
             var oModel = new JSONModel();
+            var sPath = "/Products";
+            var mParams = {
+                $top: this.pageSize,
+                $skip: this.currentSkip
+            }
+            console.log(`Calling URL: ${sPath}?$top=${mParams.$top}&$skip=${mParams.$skip}`);
             console.log(`Calling URL: /Products?$top=${this.pageSize}&$skip=${this.currentSkip}`);
-            
-            this.readOData(`/Products?$top=${this.pageSize}&$skip=${this.currentSkip}`)
+
+            // this.readOData(`/Products?$top=${this.pageSize}&$skip=${this.currentSkip}`)
+            this.readOData(sPath, mParams)
                 .then((oData) => {
                     if (oData && oData.results) {
                         oModel.setData({ results: oData.results });
                         this.getView().setModel(oModel, "pagedProducts");
+                        this.getView().byId("productTable").getBinding("items").refresh(true);
                         console.log("Data for Product successfully", oData.results);
                     }
                     else {
@@ -53,7 +63,10 @@ sap.ui.define([
                 })
         },
         loadPreviousProductData: function () {
-            if (this.currentSkip >= this.pageSize) {
+            if(this.currentSkip<=0){
+                MessageBox.alert("You are on the first Page :)");
+            }
+            else if (this.currentSkip >= this.pageSize) {
                 this.currentSkip -= this.pageSize;
                 this.loadProductData();
             }
@@ -65,6 +78,7 @@ sap.ui.define([
         },
 
         fetchOrderData: function () {
+
             console.log("inside fetchOrderData")
             this.readOData("/Orders")
                 .then((oData) => {
@@ -100,7 +114,36 @@ sap.ui.define([
                 this.getView().addDependent(this.GetStartedDialog);
             }
             this.GetStartedDialog.open();
+            sap.ui.getCore().byId("PreviousButton").setEnabled(false);
 
+        },
+        PreviousNav:function(oEvent){
+            if(this.pageNo==3){
+                sap.ui.getCore().byId("NextButton").setEnabled(true);
+                this.pageNo--;
+                sap.ui.getCore().byId("step3").setVisible(false);
+                sap.ui.getCore().byId("step2").setVisible(true);
+            }
+            else if(this.pageNo==2){
+                this.pageNo--;
+                sap.ui.getCore().byId("step2").setVisible(false);
+                sap.ui.getCore().byId("step1").setVisible(true);
+                sap.ui.getCore().byId("PreviousButton").setEnabled(false);
+            }
+        },
+        NextNav:function(){
+            if(this.pageNo==1){
+                sap.ui.getCore().byId("PreviousButton").setEnabled(true);
+                this.pageNo++;
+                sap.ui.getCore().byId("step1").setVisible(false);
+                sap.ui.getCore().byId("step2").setVisible(true);
+            }
+            else if(this.pageNo==2){
+                this.pageNo++;
+                sap.ui.getCore().byId("step2").setVisible(false);
+                sap.ui.getCore().byId("step3").setVisible(true);
+                sap.ui.getCore().byId("NextButton").setEnabled(false);
+            }
         },
         onSideNavItemPress: function (oEvent) {
             console.log("Clicked");
@@ -125,8 +168,7 @@ sap.ui.define([
 
 
             }
-        }
-        ,
+        },
         onCancelGetStartedDialog: function () {
             if (this.GetStartedDialog) {
                 this.GetStartedDialog.close();
