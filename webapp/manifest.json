@@ -70,7 +70,7 @@
         "settings": {
           "useBatch": false,
           "defaultBindingMode": "TwoWay",
-          "defaultCountMode": "Inline",
+          "defaultCountMode": "none",
           "refreshAfterChange": false,
           "metadataUrlParams": {
             "sap-value-list": "none"
@@ -113,6 +113,11 @@
           "pattern":"orders",
           "name":"orders",
           "target":"orders"
+        },
+        {
+          "pattern":"products",
+          "name":"products",
+          "target":"products"
         }
       ],
       "targets": {
@@ -131,6 +136,11 @@
           "id":"Orders",
           "viewType": "XML",
           "name":"Orders"
+        },
+        "products":{
+          "id": "Products",
+          "viewType": "XML",
+          "name": "Products"
         }
       }
     },

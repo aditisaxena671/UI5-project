@@ -17,9 +17,12 @@ sap.ui.define([
             }
             sap.ui.core.routing.HashChanger.getInstance().setHash("dashboard");
             _initialized = true;
-            console.log("goinf to call api");
-            this.fetchOrderData();
-            this.fetchCustomerDetails();
+            this.pageSize = 10;
+            this.currentSkip = 0;
+            console.log("going to call api");
+            this.loadProductData();
+            // this.fetchOrderData();
+            // this.fetchCustomerDetails();
         },
         readOData: function (sPath) {
             return new Promise((resolve, reject) => {
@@ -28,6 +31,37 @@ sap.ui.define([
                     error: reject
                 });
             });
+        },
+        loadProductData: function () {
+            console.log("Loading data for product");
+            var oModel = new JSONModel();
+            console.log(`Calling URL: /Products?$top=${this.pageSize}&$skip=${this.currentSkip}`);
+            
+            this.readOData(`/Products?$top=${this.pageSize}&$skip=${this.currentSkip}`)
+                .then((oData) => {
+                    if (oData && oData.results) {
+                        oModel.setData({ results: oData.results });
+                        this.getView().setModel(oModel, "pagedProducts");
+                        console.log("Data for Product successfully", oData.results);
+                    }
+                    else {
+                        MessageBox("Can't fetch Product");
+                    }
+                }).catch((err) => {
+                    console.error("Error fetching Products", err);
+                    MessageBox.error("Failed to fetch orders.");
+                })
+        },
+        loadPreviousProductData: function () {
+            if (this.currentSkip >= this.pageSize) {
+                this.currentSkip -= this.pageSize;
+                this.loadProductData();
+            }
+        },
+        loadNextProductData: function () {
+            this.currentSkip += this.pageSize;
+            this.loadProductData();
+
         },
 
         fetchOrderData: function () {
@@ -81,6 +115,9 @@ sap.ui.define([
                     break;
                 case "orders":
                     oRoute.navTo("orders");
+                    break;
+                case "products":
+                    oRoute.navTo("products");
                     break;
                 default:
                     console.log("Default Treggered");
@@ -243,6 +280,9 @@ sap.ui.define([
                 this.getView().addDependent(this.oColumnSelection);
             }
             this.oColumnSelection.open();
+        },
+        loadPreviousDataProduct: function () {
+
         }
     });
 });

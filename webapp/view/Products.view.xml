@@ -1,0 +1,57 @@
+<mvc:View
+controllerName="sap.ui.demo.walkthrough.project1.controller.WorkFlow"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:Table="sap.m" >
+
+    <Page>
+        <Table headerText="Customer Details" items="{pagedProducts>/results}">
+            <columns>
+                <Column>
+                    <Text text="Product ID" />
+                </Column>
+                <Column>
+                    <Text text="Product Name" />
+                </Column>
+                <Column>
+                    <Text text="Supplier ID" />
+                </Column>
+                <Column>
+                    <Text text="Category ID" />
+                </Column>
+                <Column>
+                    <Text text="Quantity Per Unit" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem type="Active" press="onRowPress">
+                    <cells>
+                        <Text text="{pagedProducts>ProductID}" />
+                        <Text text="{pagedProducts>ProductName}" />
+                        <Text text="{pagedProducts>SupplierID}" />
+
+                        <Text text="{pagedProducts>CategoryID}"/>
+                        <Text text="{pagedProducts>QuantityPerUnit}"/>
+
+                    </cells>
+                </ColumnListItem>
+            </items>
+
+        </Table>
+        <Toolbar>
+                               
+                                <Button
+                                    text="Previous"
+                                    type="Emphasized"
+                                    press="loadPreviousProductData"
+                                />
+                                <ToolbarSpacer />
+                                <Button
+                                    text="Next"
+                                    press="loadNextProductData"
+                                    type="Emphasized"
+                                />
+                            </Toolbar>
+    </Page>
+</mvc:View>

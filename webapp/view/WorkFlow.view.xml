@@ -41,10 +41,10 @@
                         key="customers"
                     />
                     <tnt:NavigationListItem
-                        text="Reports"
-                        icon="sap-icon://pie-chart"
+                        text="Products"
+                        icon="sap-icon://product"
                         press=".onSideNavItemPress"
-                        key="reports"
+                        key="products"
                     />
                 </tnt:NavigationList>
             </tnt:SideNavigation>
