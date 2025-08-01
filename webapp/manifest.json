@@ -44,7 +44,6 @@
     }
   },
   "sap.ui5": {
-    
     "flexEnabled": true,
     "dependencies": {
       "minUI5Version": "1.138.0",
@@ -98,46 +97,54 @@
         "viewPath": "sap.ui.demo.walkthrough.project1.view"
       },
       "routes": [
-        
         {
           "pattern": "dashboard",
           "name": "dashboard",
           "target": "dashboard"
         },
         {
-          "pattern":"customers",
-          "name":"customers",
-          "target":"customers"
+          "pattern": "customers",
+          "name": "customers",
+          "target": "customers"
         },
         {
-          "pattern":"orders",
-          "name":"orders",
-          "target":"orders"
+          "pattern": "orders",
+          "name": "orders",
+          "target": "orders"
         },
         {
-          "pattern":"products",
-          "name":"products",
-          "target":"products"
+          "pattern": "products",
+          "name": "products",
+          "target": "products"
+        },
+        {
+          "pattern": "customers/FullCustomerDetail/{customerId}",
+          "name": "FullCustomerDetail",
+          "target": "FullCustomerDetail"
         }
       ],
       "targets": {
-        
         "dashboard": {
           "id": "Dashboard",
           "name": "Dashboard",
           "viewType": "XML"
         },
-        "customers":{
-          "id":"Customers",
-          "viewType": "XML",
-          "name":"Customers"
+        "FullCustomerDetail": {
+          "id": "FullCustomerDetail",
+          "name": "FullCustomerDetail",
+          "viewType": "XML"
         },
-        "orders":{
-          "id":"Orders",
+        "customers": {
+          "id": "Customers",
           "viewType": "XML",
-          "name":"Orders"
+          "name": "Customers"
         },
-        "products":{
+        "orders": {
+          "id": "Orders",
+          "viewType": "XML",
+          "name": "Orders"
+        },
+        "products": {
           "id": "Products",
           "viewType": "XML",
           "name": "Products"

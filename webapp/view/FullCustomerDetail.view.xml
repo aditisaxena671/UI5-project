@@ -1,0 +1,114 @@
+<mvc:View
+    controllerName="sap.ui.demo.walkthrough.project1.controller.FullCustomerDetails"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.uxap"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    core:require="{ formatter: 'sap/ui/demo/walkthrough/project1/util/formatter' }"
+    
+>
+    <ObjectPageLayout
+        id="customerObjectPage"
+        showHeaderContent="true"
+    >
+        <headerTitle>
+            <ObjectPageHeader
+                objectTitle="{Northwind>ContactName}"
+                objectSubtitle="{Northwind>CompanyName}"
+            />
+        </headerTitle>
+
+        <headerContent>
+            <m:ObjectAttribute
+                title="Title"
+                text="{Northwind>ContactTitle}"
+            />
+            <m:ObjectAttribute
+                title="Phone"
+                text="{Northwind>Phone}"
+            />
+            <m:ObjectAttribute
+                title="Country"
+                text="{Northwind>Country}"
+            />
+        </headerContent>
+
+        <sections>
+            <ObjectPageSection title="Customer Info">
+                <subSections>
+                    <ObjectPageSubSection>
+                        <blocks>
+                            <m:VBox>
+                                <m:Text
+                                    text="Customer ID: {Northwind>CustomerID}"
+                                />
+                                <m:Text text="Address: {Northwind>Address}" />
+                                <m:Text text="City: {Northwind>City}" />
+                                <m:Text text="Region: {Northwind>Region}" />
+                                <m:Text
+                                    text="Postal Code: {Northwind>PostalCode}"
+                                />
+                                <m:Text
+                                    text="Contact Tile: {Northwind>ContactTitle}"
+                                />
+                            </m:VBox>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <ObjectPageSection title="Orders">
+                <subSections>
+                    <ObjectPageSubSection>
+                        <blocks>
+                            <m:Table
+                                items="{Northwind>Orders}"
+                                noDataText="No orders available"
+                            >
+                                <m:columns>
+                                    <m:Column>
+                                        <m:Text text="Order ID" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Order Date" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Ship Country" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Freight" />
+                                    </m:Column>
+                                </m:columns>
+
+                                <m:items>
+                                    <m:ColumnListItem>
+                                        <m:cells>
+                                            <m:Text
+                                                text="{Northwind>OrderID}"
+                                            />
+                                            <m:Text
+                                                text="{
+                                                path:'Northwind>OrderDate',
+                                                formatter: 'formatter.formatDate'}"
+                                                
+                                            />
+                                            
+                                            <m:Text
+                                                text="{Northwind>ShipCountry}"
+                                            />
+                                            <m:Text
+                                                text="{Northwind>Freight}"
+                                            />
+                                        </m:cells>
+                                    </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            
+        </sections>
+    </ObjectPageLayout>
+</mvc:View>

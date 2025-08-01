@@ -3,14 +3,19 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
-    xmlns:Table="sap.m" 
+    xmlns:Table="sap.m"
 >
     <Page>
-    <OverflowToolbar >
-        <SearchField liveChange="onChange"/>
-    </OverflowToolbar>
-        <Table headerText="Customer Details" items="{Northwind>/Customers}" growing="true"
-			growingThreshold="10" id="cutomerTable" >
+        <OverflowToolbar>
+            <SearchField liveChange="onChange" />
+        </OverflowToolbar>
+        <Table
+            headerText="Customer Details"
+            items="{Northwind>/Customers}"
+            growing="true"
+            growingThreshold="10"
+            id="cutomerTable"
+        >
             <columns>
                 <Column>
                     <Text text="Customer Name" />
@@ -27,21 +32,29 @@
                 <Column>
                     <Text text="Phone" />
                 </Column>
+                <Column>
+                    <Text text="Action" />
+                </Column>
             </columns>
             <items>
-                <ColumnListItem type="Active" press="onRowPress">
+                <ColumnListItem type="Active">
                     <cells>
-                        <Text text="{Northwind>ContactName}" />
+                        <Link
+                            text="{Northwind>ContactName}"
+                            press="onCustomerPress"
+                        />
                         <Text text="{Northwind>CompanyName}" />
                         <Text text="{Northwind>ContactTitle}" />
 
-                        <Text text="{Northwind>Country}"/>
-                        <Text text="{Northwind>Phone}"/>
-
+                        <Text text="{Northwind>Country}" />
+                        <Text text="{Northwind>Phone}" />
+                        <Button
+                            text="View order Details"
+                            press="onRowPress"
+                        />
                     </cells>
                 </ColumnListItem>
             </items>
-
         </Table>
     </Page>
 </mvc:View>

@@ -229,6 +229,32 @@ sap.ui.define([
             this.getView().byId("customerDetailsDialog").getModel("Northwind").refresh(true);
             this.customerDetailsDialog.open();
         },
+        
+        // onCustomerPress:function(oEvent){
+        //     const oRoute = sap.ui.core.UIComponent.getRouterFor(this);
+        //     oRoute.navTo("FullCustomerDetail");
+        //     var sPath= oEvent.getSource().getBindingContext("Northwind").getPath();
+        //     // this.getView().byId("customerObjectPage").bindElement({
+        //     //     path: sPath,
+        //     //     model: "Northwind",
+        //     //     parameters: { "expand": "Orders" }
+        //     // });
+        // },
+
+
+        onCustomerPress: function (oEvent) {
+            var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            var sPath = oEvent.getSource().getBindingContext("Northwind").getPath(); // e.g. /Customers(1)
+        
+            // Get the Customer ID or another unique identifier
+            var oCustomer = oEvent.getSource().getBindingContext("Northwind").getObject();
+            var sCustomerID = oCustomer.CustomerID;
+        
+            // Navigate and pass the ID
+            oRouter.navTo("FullCustomerDetail", {
+                customerId: sCustomerID
+            });
+        },        
         onChange: function (oEvent) {
             var sQuery = oEvent.getSource().getValue();
             var searchFilter = [];
